@@ -1,0 +1,83 @@
+﻿@model List<CategoryAttrViewModel>
+
+
+
+<h1>CategoryAttrReadView</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@{
+    ViewData["Title"] = "Index";
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
+    PagerModel pager = ViewBag.Pager;
+}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+<div class="container-fluid btn-group">
+    <div class="col-10">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <div class="col-2 justify-content-end">
+        <p>
+            <a asp-action="Create" class="btn btn-success">Create New</a>
+        </p>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        <partial name="_topBar" model="@pager" />
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        @*<tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Attr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th></th>
+            </tr>*@
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model)
+        {
+            //item.Attr = _uow. item.AttrId
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Attr.Name)*@
+                    @Html.DisplayFor(modelItem => item.AttrId)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Category.Name)*@
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Unit.Name)*@
+                    @Html.DisplayFor(modelItem => item.UnitId)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Value.Value)*@
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

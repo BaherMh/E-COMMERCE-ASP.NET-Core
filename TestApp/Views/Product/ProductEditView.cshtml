@@ -1,0 +1,418 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "ProductEditView";
+}
+<h1>Edit Product</h1>
+<hr />
+<div class="col-11 mx-auto pt-0 p-0">
+    <div class="card">
+        <div class="card-header bg-success text-uppercase text-white text-center" style="height:40px;">
+            @* <h5>Edit Product</h5>*@
+        </div>
+
+
+        <!-- Form Area-->
+        <form asp-action="SaveEdit" enctype="multipart/form-data" onsubmit="return ValidateForm()">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="btn-group">
+                @*<div>
+                    <img src="@Model.ProductPhoto" width="100%" alt="@Model.Name">
+                </div>*@
+                <div class="col-12">
+
+                    <div class="row">
+                        <!-- controls section -->
+
+                        <div class="form-group col-2">
+                            <label asp-for="Id" class="control-label"></label>
+                            <input asp-for="Id" class="form-control" readonly />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group col-2">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-2">
+                            <label asp-for="filePhoto" class="control-label"></label>
+
+                            <div class="custom-file">
+                                <input asp-for="filePhoto" class="custom-file-input" id="customFile" />
+                                <label class="custom-file-label" for="customFile"></label>
+
+                            </div>
+                            <span asp-validation-for="filePhoto" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group col-3">
+                            <label asp-for="Discount" class="control-label"></label>
+                            <input asp-for="Discount" class="form-control" />
+                            <span asp-validation-for="Discount" class="text-danger"></span>
+                        </div>*@
+
+                        <div class="form-group col-2">
+
+                        </div>
+
+                        <div class="form-group col-2">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-3">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" class="form-control"
+                                    asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))">
+                                <option value="">
+                                    Select Category
+                                </option>
+                            </select>
+                        </div>
+                        @*<div class="form-group col-6">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>*@
+
+
+                        @*<div class="form-group col-6">
+                    <label asp-for="Cost" class="control-label"></label>
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>*@
+
+
+
+                        @*<div class="form-group col-6">
+                    <label asp-for="UnitId" class="control-label"></label>
+                    <select asp-for="UnitId" class="form-control" asp-items="ViewBag.Units"></select>
+                    <span asp-validation-for="UnitId" class="text-danger"></span>
+                </div>*@
+
+
+                        @*<div class="form-group col-6">
+                    <label asp-for="BrandId" class="control-label"></label>
+                    <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands"></select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>*@
+
+
+
+                        @*<div class="form-group col-6">
+                    <label asp-for="ProductGroupId" class="control-label"></label>
+                    <select asp-for="ProductGroupId" class="form-control" asp-items="ViewBag.ProductGroups"></select>
+                    <span asp-validation-for="ProductGroupId" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group col-6">
+                    <label asp-for="ProductProfileId" class="control-label"></label>
+                    <select asp-for="ProductProfileId" class="form-control" asp-items="ViewBag.ProductProfiles"></select>
+                    <span asp-validation-for="ProductProfileId" class="text-danger"></span>
+                </div>*@
+                    </div>
+                </div>
+
+                @*<div class="col-4 row">
+            <div class="form-group col-12 justify-content-center align-middle mb-0 pb-0">
+                <img id="PreviewPhoto" src="~/images/@Model.PhotoUrl" alt="Logo Image"
+                     width="300" height="300" style="border:1px ;margin-top:30px; " />
+            </div>
+
+            <div class="form-group col-2 pt-0 mt-0">
+            </div>
+
+            <input type="hidden" asp-for="PhotoUrl" id="PhotoUrl" value="Error" />
+
+            <div class="form-group">
+                <span class="text-danger invisible" id="ImageError">Please choose image</span>
+            </div>
+
+            <div class="form-group col-10 pt-0 mt-0">
+                <div class="custom-file">
+                    <input asp-for="ProductPhoto" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Browse Photo</label>
+                </div>
+            </div>
+        </div>*@
+
+            </div>
+            <div class="col-12 ml-5">
+                <table id="attributesTable" class="table table-borderless table-sm mb-0 pb-0">
+                    <thead>
+
+                        @*<tr>*@
+                    @*<th>
+                        Id
+                    </th>*@
+                    <th>
+                        Attribute
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                    <th>
+                        Unit
+                    </th>
+
+                    <th style="width:60px">
+                        <button id='btnAddDetailRow' type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)">
+                            Add
+                        </button>
+                    </th>
+                    <td></td>
+                    @*</tr>*@
+
+                    </thead>
+
+                    <tbody>
+                        @for (int i = 0; i < Model.attributesNumber; i++)
+                        {
+                            <tr>
+                                <!--<td>-->
+                                    @*<label asp-for="ProductAttributes.Id" class="control-label"></label>*@
+                                    <!--<input asp-for="ProductAttributes[i].Id" class="form-control" />
+                                    <span asp-validation-for="ProductAttributes[i].Id" class="text-danger"></span>
+                                </td>-->
+
+                                <td>
+                                    @*<label asp-for="ProductAttributes.AttrId" class="control-label"></label>*@
+                                    <select asp-for="ProductAttributes[i].AttrId" class="form-control"
+                                            asp-items="@(new SelectList(ViewBag.Attributes,"Id","Name"))">
+                                        <option value="">
+                                            Select Attribute
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    @*<label asp-for="ProductAttributes.ValueId" class="control-label"></label>*@
+                                    <input asp-for="ProductAttributes[i].Value" class="form-control" />
+                                    <span asp-validation-for="ProductAttributes[i].Value" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    @*<label asp-for="ProductAttributes.UnitId" class="control-label"></label>*@
+                                    <select asp-for="ProductAttributes[i].UnitId" class="form-control"
+                                            asp-items="@(new SelectList(ViewBag.Units,"Id","Name"))">
+                                        <option value="">
+                                            Select Unit
+                                        </option>
+                                    </select>
+                                </td>
+                                <td style="width: 60px;  ">
+                                    <button id='btnremove-@i' type="button" class="btn btn-sm btn-danger visible" style="margin-right: 76px;" onclick="DeletItem(this)">
+                                        Delete
+                                    </button>
+                                </td>
+                                <td>
+                                    @*<label asp-for="ProductAttributes.ProductId" class="control-label"></label>
+                                        <select asp-for="ProductAttributes.ProductId" class="form-control"
+                                                asp-items="@(new SelectList(ViewBag.Products,"Id","Price"))">
+                                            <option value="">
+                                                Select Product
+                                            </option>
+                                        </select>*@
+                                    @*<label asp-for="ProductAttributes.ProductId" class="control-label" ></label>*@
+                                    <input asp-for="ProductAttributes[i].ProductId" class="form-control" type="hidden" value="3487" />
+                                    @*<span asp-validation-for="ProductAttributes.ProductId" class="text-danger"></span>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div class="form-group btn-group col-10">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <input type="submit" value="Edit" class="btn btn-primary btn-block" />
+                </div>
+                <div class="col-5">
+                    <a class="btn btn-secondary btn-block" asp-action="index"
+                       asp-route-pg="@TempData.Peek("CurrentPage")">Back</a>
+                </div>
+                <div class="col-1"></div>
+            </div>
+
+        </form>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function AddItem(btn) {
+
+            //this.attributesNumber = this.attributesNumber + 1;
+            //window.location.reload();
+            ////$.ajax({
+            ////    url: "specific url",
+            ////    method: "GET" / "POST",
+            ////    data: "",
+            ////    success: function (data) {
+            ////        $('#divID').html(data);
+            ////    }
+            ////});
+            @*@Model.attributesNumber =  @Model.attributesNumber + 1;
+            console.log(@Model.attributesNumber);*@
+            var table;
+            table = document.getElementById('attributesTable');
+            var rows = table.getElementsByTagName('tr');
+            var rowsOuterHtml = rows[rows.length - 1].outerHTML;
+
+            var lastrowIdx = rows.length - 2;
+            var nextrowIdx = eval(lastrowIdx) + 1;
+
+            rowsOuterHtml = rowsOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowsOuterHtml = rowsOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowsOuterHtml = rowsOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowsOuterHtml;
+
+            var x = document.getElementsByTagName("INPUT");
+
+            for (var cnt = 0; cnt < x.length; cnt++) {
+                if (x[cnt].type == "text" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0)
+                    x[cnt].value = '';
+                else if (x[cnt].type == "number" && x[cnt].id.indexOf('_' + nextrowIdx + '_') > 0)
+                    x[cnt].value = 3;
+            }
+
+        }
+        function DeletItem(btn) {
+            @*@Model.attributesNumber =  @Model.attributesNumber - 1;
+            console.log(@Model.attributesNumber);*@
+            $(btn).closest('tr').remove();
+        }
+
+        @* $(function () {
+
+            $(".deleteAttributeButton").click(function (e) {
+                e.preventDefault();
+                $.post("@Url.Action("deleteOneAttribute", "Product")", { id: $(this).data("ProductAttributes[i].Id") }, function (data) {
+                    alert(data);
+                    $(btn).closest('tr').remove();
+
+                });
+            });
+
+        });*@
+        //$(".custom-file-input").on("change", function () {
+
+        //    document.getElementById('ImageError').classList.add("invisible");
+        //    document.getElementById('ImageError').classList.remove("visible");
+
+        //    var fsize = $(this)[0].files[0].size;
+
+        //    var fileName = $(this).val().split("\\").pop();
+
+        //    var fileExt = fileName.split('.').pop();
+
+
+        //    var error = IsImageValid(fsize, fileExt);
+        //    if (error != "") {
+
+        //        document.getElementById('ImageError').innerText = error;
+        //        document.getElementById('ImageError').classList.remove("invisible");
+        //        document.getElementById('ImageError').classList.add("visible");
+        //        return;
+        //    }
+
+
+        //    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+        //    document.getElementById('PreviewPhoto').src = window.URL.createObjectURL(this.files[0]);
+
+        //    document.getElementById('PhotoUrl').value = fileName;
+
+        //});
+
+
+        //function IsImageValid(fsize, fileExt) {
+
+        //    var error = "";
+        //    error = IsExtensionValid(fileExt);
+
+        //    if (error != "") {
+        //        return error;
+        //    }
+
+        //    error = IsFileSizeValid(fsize);
+        //    if (error != "") {
+        //        return error;
+        //    }
+
+        //    return "";
+
+        //}
+
+        //function IsExtensionValid(fileExt) {
+
+        //    if (fileExt != 'jpg' && fileExt != 'png') {
+        //        return "Only Jpeg or Png files are Accepted";
+        //    }
+
+        //    return "";
+        //}
+
+        //function IsFileSizeValid(fSize) {
+
+        //    var fSizeInKb = Math.round((fSize / 1024));
+
+        //    if (fSizeInKb > 100) {
+        //        return "Files Sized over 100 Kb are not Allowed";
+        //    }
+
+        //    return "";
+        //}
+
+        //function IsImageSelected() {
+
+        //    if (document.getElementById('PhotoUrl').value == 'Error') {
+        //        return "Image Not Selected To Upload";
+        //    }
+
+        //    return "";
+
+        //}
+
+        //function ValidateForm() {
+
+
+        //    var error = IsImageSelected();
+        //    if (error != "") {
+
+        //        document.getElementById('ImageError').innerText = error;
+        //        document.getElementById('ImageError').classList.remove("invisible");
+        //        document.getElementById('ImageError').classList.add("visible");
+        //        return false;
+        //    }
+
+
+        //    return true;
+        //}
+
+
+
+    </script>
+
+
+}

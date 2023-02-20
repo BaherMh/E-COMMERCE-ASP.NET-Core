@@ -1,0 +1,26 @@
+﻿<div class="row">
+    <div class="col-md-6 offset-3 card col-md-4 col-xs-6 border-primary mb-3" style="margin-top:10px;">
+        <p>
+            <h4>Trace your order!</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2 ">
+                <form asp-action="getStatus">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label class="control-label">Id</label>
+                        <input class="form-control" name="id" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float-right" type="submit" value="Get staus" />
+                        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Http;
+@*@model HttpContext;*@
+
+@using Microsoft.AspNetCore.Identity
+@*@using Microsoft.AspNetCore.Http*@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    string menuTextColor = "text-white";
+    //HttpContext HttpContext = @Model;
+}
+<ul class="navbar-nav">
+    @{
+        //out byte[] session_id ;
+        //var loaded = false;
+        //var session_id = "";
+        //if (HttpContext != null)
+        //{
+        //    loaded = HttpContext.Session.IsAvailable;
+        //    if (loaded)
+        //    {
+        //        session_id = HttpContext.Session.GetString("UserId");
+
+        //    }
+        //}
+    }
+    @if (@HttpContextAccessor.HttpContext.Session.GetString("UserId") != null)
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link @menuTextColor" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        @*<li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link @menuTextColor">Logout</button>
+            </form>
+        </li>*@
+        <li class="nav-item">
+            <a class="nav-link @menuTextColor" id="login" asp-controller="Account" asp-action="Profile">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @menuTextColor" id="login" asp-controller="Home" asp-action="Logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link @menuTextColor" id="register" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @menuTextColor" id="login" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+
+    }
+</ul>
